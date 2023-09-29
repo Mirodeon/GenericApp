@@ -2,6 +2,7 @@ package com.mirodeon.genericapp.utils.sharedPref
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 
 class SharedPrefManager(activity: Activity) {
     companion object {
@@ -9,14 +10,15 @@ class SharedPrefManager(activity: Activity) {
     }
 
     enum class KeyPref(val value: String) {
-        FIRST_TIME_OPENING("FIRST_TIME_OPENING")
+        FIRST_TIME_OPENING("FIRST_TIME_OPENING"),
+        REMEMBER_ME("REMEMBER_ME")
     }
 
-    val sharedPref =
+    val sharedPref: SharedPreferences =
         activity.applicationContext.getSharedPreferences(
             PREFERENCE_KEY,
             Context.MODE_PRIVATE
         )
 
-    val editor = sharedPref.edit()
+    val editor: SharedPreferences.Editor = sharedPref.edit()
 }

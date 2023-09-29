@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">GenericApp</string>
+    <string name="btn_settings">settings button</string>
+    <string name="home_logo_description">home button</string>
+    <string name="no_title">no_title</string>
+    <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
+    <string name="email_hint">Ton email ici</string>
+    <string name="password_hint">Ton mot de passe ici</string>
+    <string name="login_button_title">Login</string>
+    <string name="password_error_hint">Ton mot de passe n\'est pas valide.</string>
+    <string name="email_error_hint">Ton email n\'est pas valide.</string>
+    <string name="remember_me">Remember me</string>
+    <string name="no_content">no_content</string>
 </resources>

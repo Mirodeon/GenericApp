@@ -1,5 +1,6 @@
 package com.mirodeon.genericapp.utils.permission
 
+import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
@@ -63,6 +64,17 @@ class PermissionsCheckerManager(private val activity: Activity) {
         }
 
         handler()
+    }
+
+    fun checkPermissionsLocation(requestCode: Int, handler: () -> Unit) {
+        checkPermissions(
+            requestCode,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            handler
+        )
     }
 
 }
