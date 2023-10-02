@@ -17,7 +17,7 @@ class FromApiViewModel(
     private val secondApiService: ExampleSecondApiServiceImpl,
 ) : ViewModel() {
 
-    private fun getSomeDataFromFirstApi(handler: (data: Array<ItemFromFirstApi>?) -> Unit) {
+    fun getSomeDataFromFirstApi(handler: (data: Array<ItemFromFirstApi>?) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = firstApiService.getSomeDataFromFirstApi()
             withContext(Dispatchers.Main) {
@@ -35,7 +35,7 @@ class FromApiViewModel(
         }
     }
 
-    private fun getSpecificDataFromSecondApi(
+    fun getSpecificDataFromSecondApi(
         id: String,
         handler: (data: Array<ItemFromSecondApi>?) -> Unit
     ) {
