@@ -6,12 +6,13 @@ import android.content.SharedPreferences
 
 class SharedPrefManager(activity: Activity) {
     companion object {
-        private const val PREFERENCE_KEY = "com.mirodeon.exogeoloc"
+        private const val PREFERENCE_KEY = "com.mirodeon.genericapp"
     }
 
     enum class KeyPref(val value: String) {
         FIRST_TIME_OPENING("FIRST_TIME_OPENING"),
-        REMEMBER_ME("REMEMBER_ME")
+        LOGIN_KEY( "LOGIN_KEY"),
+        PASSWORD_KEY ("PASSWORD_KEY")
     }
 
     val sharedPref: SharedPreferences =

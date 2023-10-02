@@ -1,4 +1,4 @@
-package com.mirodeon.genericapp.activity
+package com.mirodeon.genericapp.activity.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
