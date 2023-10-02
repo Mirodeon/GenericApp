@@ -3,7 +3,6 @@ package com.mirodeon.genericapp.activity.login.utils
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.button.MaterialButton
@@ -17,16 +16,16 @@ import com.mirodeon.genericapp.utils.validator.LoginValidator
 class AuthenticateManager(
     activity: Activity,
     private val view: View?,
-    val validIcon: Drawable?,
+    private val validIcon: Drawable?,
     private val colorValid: Int,
     private val colorInvalid: Int,
     private val checkBoxRememberMe: MaterialCheckBox?,
-    val layoutEmail: TextInputLayout?,
+    private val layoutEmail: TextInputLayout?,
     private val inputEmail: TextInputEditText?,
-    val textEmailError: String,
-    val layoutPassword: TextInputLayout?,
+    private val textEmailError: String,
+    private val layoutPassword: TextInputLayout?,
     private val inputPassword: TextInputEditText?,
-    val textPasswordError: String,
+    private val textPasswordError: String,
     private val loginButton: MaterialButton?,
     val onLoginAction: () -> Unit
 ) {
@@ -63,19 +62,21 @@ class AuthenticateManager(
             inputEmail?.setText(userName)
             inputPassword?.setText(password)
             checkBoxRememberMe?.isChecked = true
-            Log.d("Login", "Get: $userName $password")
+
             toggleInputValidity(
                 LoginValidator.isEmailValid(userName),
                 layoutEmail,
                 inputEmail,
                 textEmailError
             )
+
             toggleInputValidity(
                 LoginValidator.isPasswordValid(password),
                 layoutPassword,
                 inputPassword,
                 textPasswordError
             )
+
             toggleButtonValidity()
         }
     }
@@ -99,7 +100,6 @@ class AuthenticateManager(
             layout?.endIconDrawable = validIcon
             layout?.endIconMode = TextInputLayout.END_ICON_CUSTOM
             layout?.setEndIconTintList(ColorStateList.valueOf(colorValid))
-            Log.d("Login", "Change layout to valid state")
         } else {
             layout?.error = errorText
             layout?.isErrorEnabled = true
@@ -130,12 +130,9 @@ class AuthenticateManager(
                         SharedPrefManager.KeyPref.PASSWORD_KEY.value,
                         password.toString()
                     )
-                    Log.d("Login", "put: $email $password")
-
                 } else {
                     this.remove(SharedPrefManager.KeyPref.LOGIN_KEY.value)
                     this.remove(SharedPrefManager.KeyPref.PASSWORD_KEY.value)
-                    Log.d("Login", "remove mail and password")
                 }
                 this.apply()
             }

@@ -10,13 +10,13 @@ import retrofit2.http.Path
 
 interface ExampleSecondApiService {
     @Headers("Content-type: application/json")
-    @GET("assets/{id}/")
+    @GET("assets/{id}/history?interval=d1")
     suspend fun specificDataFromSecondApi(
         @Path("id") id: String
-    ): Response<Data<ItemFromSecondApi>>
+    ): Response<Data<Array<ItemFromSecondApi>>>
 }
 
-class ExampleSecondApiServiceImpl : BaseService(UrlApi.UrlSecondApi) {
-    suspend fun getSpecificDataFromSecondApi(id: String): Response<Data<ItemFromSecondApi>> =
+class ExampleSecondApiServiceImpl : BaseService(UrlApi.UrlFirstApi) {
+    suspend fun getSpecificDataFromSecondApi(id: String): Response<Data<Array<ItemFromSecondApi>>> =
         getRetrofit().create(ExampleSecondApiService::class.java).specificDataFromSecondApi(id)
 }
