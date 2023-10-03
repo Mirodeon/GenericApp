@@ -13,7 +13,7 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class ItemFromFirstApiAdapter(
-    private val onItemClicked: (id: String) -> Unit
+    private val onItemClicked: (item: ItemFromFirstApi) -> Unit
 ) : ListAdapter<ItemFromFirstApi, ItemFromFirstApiAdapter.ItemFromFirstApiViewHolder>(DiffCallback) {
 
     companion object {
@@ -44,7 +44,7 @@ class ItemFromFirstApiAdapter(
         )
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
-            getItem(position).id?.let { id -> onItemClicked(id) }
+            onItemClicked(getItem(position))
         }
         return viewHolder
     }

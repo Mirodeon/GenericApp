@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.mirodeon.genericapp.R
 import com.mirodeon.genericapp.activity.main.utils.NavigationManager
 import com.mirodeon.genericapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
     private lateinit var navigationManager: NavigationManager

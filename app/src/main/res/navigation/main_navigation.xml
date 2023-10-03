@@ -24,7 +24,7 @@
         android:label="fragment_list_details_api"
         tools:layout="@layout/fragment_list_details_api" >
         <argument
-            android:name="id"
-            app:argType="string" />
+            android:name="itemfromFirstApi"
+            app:argType="com.mirodeon.genericapp.network.dto.ItemFromFirstApi" />
     </fragment>
 </navigation>

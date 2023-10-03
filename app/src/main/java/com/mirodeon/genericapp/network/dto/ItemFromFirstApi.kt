@@ -1,7 +1,10 @@
 package com.mirodeon.genericapp.network.dto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class ItemFromFirstApi(
     @SerializedName("id")
     var id: String? = null,
@@ -25,4 +28,4 @@ data class ItemFromFirstApi(
     var changePercent24Hr: String? = null,
     @SerializedName("vwap24H")
     var vwap24H: String? = null
-)
+) : Parcelable

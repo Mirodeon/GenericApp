@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.mirodeon.genericapp.network.dto.ItemFromFirstApi
 import com.mirodeon.genericapp.network.dto.ItemFromSecondApi
 import com.mirodeon.genericapp.network.service.ExampleFirstApiServiceImpl
-import com.mirodeon.genericapp.network.service.ExampleSecondApiServiceImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,8 +12,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 class FromApiViewModel(
-    private val firstApiService: ExampleFirstApiServiceImpl,
-    private val secondApiService: ExampleSecondApiServiceImpl,
+    private val firstApiService: ExampleFirstApiServiceImpl
 ) : ViewModel() {
 
     fun getSomeDataFromFirstApi(handler: (data: Array<ItemFromFirstApi>?) -> Unit) {
@@ -35,12 +33,12 @@ class FromApiViewModel(
         }
     }
 
-    fun getSpecificDataFromSecondApi(
+    fun getSpecificDataFromFirstApi(
         id: String,
         handler: (data: Array<ItemFromSecondApi>?) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = secondApiService.getSpecificDataFromSecondApi(id)
+            val response = firstApiService.getSpecificDataFromFirstApi(id)
             withContext(Dispatchers.Main) {
                 try {
                     if (response.isSuccessful) {
@@ -59,13 +57,12 @@ class FromApiViewModel(
 }
 
 class FromApiViewModelFactory(
-    private val firstApiService: ExampleFirstApiServiceImpl,
-    private val secondApiService: ExampleSecondApiServiceImpl,
+    private val firstApiService: ExampleFirstApiServiceImpl
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FromApiViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return FromApiViewModel(firstApiService, secondApiService) as T
+            return FromApiViewModel(firstApiService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
