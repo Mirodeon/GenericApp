@@ -9,10 +9,14 @@ import com.mirodeon.genericapp.R
 import com.mirodeon.genericapp.activity.login.utils.AuthenticateManager
 import com.mirodeon.genericapp.activity.main.MainActivity
 import com.mirodeon.genericapp.databinding.ActivityLoginBinding
+import com.mirodeon.genericapp.network.utils.AlertNetwork
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private var binding: ActivityLoginBinding? = null
     private var validIconDrawable: Drawable? = null
+    private lateinit var alertNetwork: AlertNetwork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
             ResourcesCompat.getDrawable(resources, R.drawable.ico_valid_green, theme)
 
         setContentView(binding?.root)
+
+        registerNetworkChange()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -55,6 +61,14 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent).also {
             finish()
         }
+    }
+
+    private fun registerNetworkChange() {
+        binding?.root?.let {
+            alertNetwork = AlertNetwork(this, it)
+        }
+        alertNetwork.initialNetworkState()
+        alertNetwork.registerForNetworkStateChanges()
     }
 
 }

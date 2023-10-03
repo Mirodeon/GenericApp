@@ -16,7 +16,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="list_api_title">List Api</string>
     <string name="list_api_details_title">List Api Details</string>
+    <string name="waifus_title">Waifus</string>
 
     <string name="percent">%1$s\%%</string>
     <string name="usd">%1$s USD</string>
+    <string name="button_fav">button fav</string>
 </resources>

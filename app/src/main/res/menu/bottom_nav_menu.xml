@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/listApiFragment"
-        android:icon="@drawable/baseline_currency_exchange_24"
-        android:title="@string/list_api_title" />
+        android:id="@+id/waifuFragment"
+        android:icon="@drawable/baseline_girl_24"
+        android:title="@string/waifus_title" />
 </menu>

@@ -10,26 +10,30 @@ import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mirodeon.genericapp.adapter.ItemFromFirstApiAdapter
-import com.mirodeon.genericapp.databinding.FragmentListApiBinding
-import com.mirodeon.genericapp.network.dto.ItemFromFirstApi
-import com.mirodeon.genericapp.network.service.ExampleFirstApiServiceImpl
-import com.mirodeon.genericapp.viewModel.itemFromApi.FromApiViewModel
-import com.mirodeon.genericapp.viewModel.itemFromApi.FromApiViewModelFactory
+import com.mirodeon.genericapp.adapter.WaifuAdapter
+import com.mirodeon.genericapp.databinding.FragmentWaifuBinding
+import com.mirodeon.genericapp.network.dto.Waifu
+import com.mirodeon.genericapp.network.service.WaifuServiceImpl
+import com.mirodeon.genericapp.viewModel.WaifuViewModel
+import com.mirodeon.genericapp.viewModel.WaifuViewModelFactory
 import kotlinx.coroutines.launch
 
-class ListApiFragment : Fragment() {
-    private var binding: FragmentListApiBinding? = null
+class WaifuFragment : Fragment() {
+    private var binding: FragmentWaifuBinding? = null
     private var recyclerView: RecyclerView? = null
-    private val viewModel: FromApiViewModel by activityViewModels {
-        FromApiViewModelFactory(ExampleFirstApiServiceImpl())
+    private val viewModel: WaifuViewModel by activityViewModels {
+        WaifuViewModelFactory(WaifuServiceImpl())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListApiBinding.inflate(inflater, container, false)
+        binding = FragmentWaifuBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -48,26 +52,27 @@ class ListApiFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun navigateToDetails(item: ItemFromFirstApi) {
-        val directions =
+    private fun toggleFav(item: Waifu) {
+        /*val directions =
             ListApiFragmentDirections.actionListApiFragmentToListDetailsApiFragment(item)
-        findNavController().navigate(directions)
+        findNavController().navigate(directions)*/
     }
 
     private fun setupRecyclerView() {
         recyclerView = binding?.containerRecycler
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        val itemAdapter = ItemFromFirstApiAdapter { navigateToDetails(it) }
+        val itemAdapter = WaifuAdapter { toggleFav(it) }
         recyclerView?.adapter = itemAdapter
     }
 
     private fun actualizeDataRecycler() {
         lifecycle.coroutineScope.launch {
-            viewModel.getSomeDataFromFirstApi { data ->
+            viewModel.getRandomWaifus { data ->
                 data?.toMutableList().let { listFromData ->
-                    (recyclerView?.adapter as? ItemFromFirstApiAdapter)?.submitList(listFromData)
+                    (recyclerView?.adapter as? WaifuAdapter)?.submitList(listFromData)
                 }
             }
         }
     }
+
 }
