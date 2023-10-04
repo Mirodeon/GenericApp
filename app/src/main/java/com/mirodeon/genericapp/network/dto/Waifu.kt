@@ -2,21 +2,21 @@ package com.mirodeon.genericapp.network.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class DataWaifu(
+data class DataWaifuDto(
     @SerializedName("images")
-    var images: List<Waifu>
+    var images: List<WaifuDto>
 )
 
-data class Waifu(
+data class WaifuDto(
     @SerializedName("source")
     var source: String?,
     @SerializedName("url")
     var url: String?,
     @SerializedName("tags")
-    var tags: List<Tag>
+    var tags: List<TagDto>
 )
 
-data class Tag(
+data class TagDto(
     @SerializedName("name")
     var name: String?
 )

@@ -20,6 +20,10 @@ interface WaifuDao {
     fun getAll(): Flow<List<WaifuWithTag>>
 
     @Transaction
+    @Query("SELECT * FROM waifu")
+    fun getAllCold(): List<WaifuWithTag>
+
+    @Transaction
     @Query("SELECT * FROM waifu WHERE waifuId = :id")
     fun findById(id: Long): WaifuWithTag
 
@@ -27,10 +31,14 @@ interface WaifuDao {
     @Query("SELECT * FROM waifu WHERE url = :url LIMIT 1")
     fun findByUrl(url: String): WaifuWithTag
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Transaction
+    @Query("SELECT * FROM waifu WHERE isFav = :isFav")
+    fun getIsFav(isFav: Boolean): Flow<List<WaifuWithTag>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(waifu: Waifu): Long
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertRef(ref: WaifuTagCrossRef)
 
     @Delete
@@ -70,16 +78,19 @@ interface TagDao {
     @Query("SELECT * FROM tag")
     fun getAll(): Flow<List<Tag>>
 
+    @Query("SELECT * FROM tag")
+    fun getAllCold(): List<Tag>
+
     @Transaction
     @Query("SELECT * FROM tag")
-    fun getAllWithBooks(): Flow<List<TagWithWaifu>>
+    fun getAllWithWaifus(): Flow<List<TagWithWaifu>>
 
     @Query("SELECT * FROM tag WHERE name = :name")
     fun findByName(name: String): Tag
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(genre: Tag): Long
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(tag: Tag): Long
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg tags: Tag)
 }

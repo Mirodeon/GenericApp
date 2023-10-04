@@ -1,31 +1,36 @@
 package com.mirodeon.genericapp.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mirodeon.genericapp.R
+import com.mirodeon.genericapp.application.MyApp
 import com.mirodeon.genericapp.databinding.WaifuCellBinding
-import com.mirodeon.genericapp.network.dto.Waifu
+import com.mirodeon.genericapp.network.dto.WaifuDto
+import com.mirodeon.genericapp.room.entity.WaifuWithTag
 import com.squareup.picasso.Picasso
 
 class WaifuAdapter(
-    private val onItemClicked: (item: Waifu) -> Unit
-) : ListAdapter<Waifu, WaifuAdapter.WaifuViewHolder>(DiffCallback) {
+    private val onItemClicked: (item: WaifuWithTag) -> Unit
+) : ListAdapter<WaifuWithTag, WaifuAdapter.WaifuViewHolder>(DiffCallback) {
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Waifu>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<WaifuWithTag>() {
             override fun areItemsTheSame(
-                oldItem: Waifu,
-                newItem: Waifu
+                oldItem: WaifuWithTag,
+                newItem: WaifuWithTag
             ): Boolean {
-                return oldItem.url == newItem.url
+                return oldItem.waifu.waifuId == newItem.waifu.waifuId
             }
 
             override fun areContentsTheSame(
-                oldItem: Waifu,
-                newItem: Waifu
+                oldItem: WaifuWithTag,
+                newItem: WaifuWithTag
             ): Boolean {
                 return oldItem == newItem
             }
@@ -55,10 +60,23 @@ class WaifuAdapter(
         private var binding: WaifuCellBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(waifu: Waifu, onItemClicked: (item: Waifu) -> Unit) {
-            waifu.url?.let { setupImage(it) }
-            binding.txtSource.text = waifu.source
-            binding.txtTags.text = waifu.tags.map { it.name }.joinToString(" - ")
+        fun bind(waifu: WaifuWithTag, onItemClicked: (item: WaifuWithTag) -> Unit) {
+            waifu.waifu.url.let { setupImage(it) }
+            binding.txtSource.text = waifu.waifu.source
+            binding.txtTags.text = waifu.tags.joinToString(" - ") { it.name }
+            binding.btnFav.imageTintList =
+                ColorStateList.valueOf(
+                    if (waifu.waifu.isFav)
+                        ContextCompat.getColor(
+                            MyApp.instance,
+                            R.color.red
+                        )
+                    else
+                        ContextCompat.getColor(
+                            MyApp.instance,
+                            R.color.black
+                        )
+                )
             binding.btnFav.setOnClickListener {
                 onItemClicked(waifu)
             }

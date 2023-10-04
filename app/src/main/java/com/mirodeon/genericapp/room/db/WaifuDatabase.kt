@@ -10,11 +10,12 @@ import com.mirodeon.genericapp.room.dao.TagDao
 import com.mirodeon.genericapp.room.dao.WaifuDao
 import com.mirodeon.genericapp.room.entity.Tag
 import com.mirodeon.genericapp.room.entity.Waifu
+import com.mirodeon.genericapp.room.entity.WaifuTagCrossRef
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Waifu::class, Tag::class], version = 1)
+@Database(entities = [Waifu::class, Tag::class, WaifuTagCrossRef::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class WaifuDatabase : RoomDatabase() {
 

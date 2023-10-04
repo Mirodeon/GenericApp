@@ -21,4 +21,5 @@
     <string name="percent">%1$s\%%</string>
     <string name="usd">%1$s USD</string>
     <string name="button_fav">button fav</string>
+    <string name="favorite">Favorite</string>
 </resources>

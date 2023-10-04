@@ -53,5 +53,5 @@ data class TagWithWaifu(
         entityColumn = "waifuId",
         associateBy = Junction(WaifuTagCrossRef::class)
     )
-    val books: List<Waifu>
+    val waifus: List<Waifu>
 )
